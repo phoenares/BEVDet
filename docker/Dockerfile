@@ -98,16 +98,16 @@ RUN cd /root/workspace/mmdeploy &&\
 ENV LD_LIBRARY_PATH="/root/workspace/mmdeploy/build/lib:${BACKUP_LD_LIBRARY_PATH}"
 
 #RUN pip install mmdet==2.25.1 mmsegmentation==0.25.0  -i https://pypi.tuna.tsinghua.edu.cn/simple && \
-    cd ..
+#    cd ..
 
 #RUN pip install pycuda \
-    lyft_dataset_sdk \
-    networkx==2.2 \
-    numba==0.53.0 \
-    numpy \
-    nuscenes-devkit \
-    plyfile \
-    scikit-image \
-    tensorboard \
-    trimesh==2.35.39 -i https://pypi.tuna.tsinghua.edu.cn/simple
+#    lyft_dataset_sdk \
+#    networkx==2.2 \
+#    numba==0.53.0 \
+#    numpy \
+#    nuscenes-devkit \
+#    plyfile \
+#    scikit-image \
+#    tensorboard \
+#    trimesh==2.35.39 -i https://pypi.tuna.tsinghua.edu.cn/simple
 
