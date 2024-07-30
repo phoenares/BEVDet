@@ -58,44 +58,44 @@ ENV ONNXRUNTIME_DIR=/root/workspace/onnxruntime-linux-x64-${ONNXRUNTIME_VERSION}
 ENV TENSORRT_DIR=/workspace/tensorrt
 ARG VERSION
 RUN git clone https://github.com/HuangJunJie2017/mmdeploy.git
-RUN cd mmdeploy &&\
-    if [ -z ${VERSION} ] ; then echo "No MMDeploy version passed in, building on master" ; else git checkout tags/v${VERSION} -b tag_v${VERSION} ; fi &&\
-    git submodule update --init --recursive &&\
-    mkdir -p build &&\
-    cd build &&\
-    cmake -DMMDEPLOY_TARGET_BACKENDS="ort;trt" .. &&\
-    make -j$(nproc) &&\
-    cd .. &&\
-    pip install -e .  -i https://pypi.tuna.tsinghua.edu.cn/simple
+#RUN cd mmdeploy &&\
+#    if [ -z ${VERSION} ] ; then echo "No MMDeploy version passed in, building on master" ; else git checkout tags/v${VERSION} -b tag_v${VERSION} ; fi &&\
+#    git submodule update --init --recursive &&\
+#    mkdir -p build &&\
+#    cd build &&\
+#    cmake -DMMDEPLOY_TARGET_BACKENDS="ort;trt" .. &&\
+#    make -j$(nproc) &&\
+#    cd .. &&\
+#    pip install -e .  -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ### build sdk
-RUN git clone https://github.com/openppl-public/ppl.cv.git &&\
-    cd ppl.cv &&\
-    git checkout tags/v${PPLCV_VERSION} -b v${PPLCV_VERSION} &&\
-    ./build.sh cuda
+#RUN git clone https://github.com/openppl-public/ppl.cv.git &&\
+#    cd ppl.cv &&\
+#    git checkout tags/v${PPLCV_VERSION} -b v${PPLCV_VERSION} &&\
+#    ./build.sh cuda
 
-ENV BACKUP_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
-ENV LD_LIBRARY_PATH=/usr/local/cuda/compat/lib.real/:$LD_LIBRARY_PATH
+#ENV BACKUP_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+#ENV LD_LIBRARY_PATH=/usr/local/cuda/compat/lib.real/:$LD_LIBRARY_PATH
 
-RUN cd /root/workspace/mmdeploy &&\
-    rm -rf build/CM* build/cmake-install.cmake build/Makefile build/csrc &&\
-    mkdir -p build && cd build &&\
-    cmake .. \
-        -DMMDEPLOY_BUILD_SDK=ON \
-        -DMMDEPLOY_BUILD_EXAMPLES=ON \
-        -DCMAKE_CXX_COMPILER=g++ \
-        -Dpplcv_DIR=/root/workspace/ppl.cv/cuda-build/install/lib/cmake/ppl \
-        -DTENSORRT_DIR=${TENSORRT_DIR} \
-        -DONNXRUNTIME_DIR=${ONNXRUNTIME_DIR} \
-        -DMMDEPLOY_BUILD_SDK_PYTHON_API=ON \
-        -DMMDEPLOY_TARGET_DEVICES="cuda;cpu" \
-        -DMMDEPLOY_TARGET_BACKENDS="ort;trt" \
-        -DMMDEPLOY_CODEBASES=all &&\
-    make -j$(nproc) && make install &&\
-    export SPDLOG_LEVEL=warn &&\
-    if [ -z ${VERSION} ] ; then echo "Built MMDeploy master for GPU devices successfully!" ; else echo "Built MMDeploy version v${VERSION} for GPU devices successfully!" ; fi
+#RUN cd /root/workspace/mmdeploy &&\
+#    rm -rf build/CM* build/cmake-install.cmake build/Makefile build/csrc &&\
+#    mkdir -p build && cd build &&\
+#    cmake .. \
+#        -DMMDEPLOY_BUILD_SDK=ON \
+#        -DMMDEPLOY_BUILD_EXAMPLES=ON \
+#        -DCMAKE_CXX_COMPILER=g++ \
+#        -Dpplcv_DIR=/root/workspace/ppl.cv/cuda-build/install/lib/cmake/ppl \
+#        -DTENSORRT_DIR=${TENSORRT_DIR} \
+#        -DONNXRUNTIME_DIR=${ONNXRUNTIME_DIR} \
+#        -DMMDEPLOY_BUILD_SDK_PYTHON_API=ON \
+#        -DMMDEPLOY_TARGET_DEVICES="cuda;cpu" \
+#        -DMMDEPLOY_TARGET_BACKENDS="ort;trt" \
+#        -DMMDEPLOY_CODEBASES=all &&\
+#    make -j$(nproc) && make install &&\
+#    export SPDLOG_LEVEL=warn &&\
+#    if [ -z ${VERSION} ] ; then echo "Built MMDeploy master for GPU devices successfully!" ; else echo "Built MMDeploy version v${VERSION} for GPU devices successfully!" ; fi
 
-ENV LD_LIBRARY_PATH="/root/workspace/mmdeploy/build/lib:${BACKUP_LD_LIBRARY_PATH}"
+#ENV LD_LIBRARY_PATH="/root/workspace/mmdeploy/build/lib:${BACKUP_LD_LIBRARY_PATH}"
 
 #RUN pip install mmdet==2.25.1 mmsegmentation==0.25.0  -i https://pypi.tuna.tsinghua.edu.cn/simple && \
 #    cd ..
