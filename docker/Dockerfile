@@ -42,7 +42,7 @@ RUN /opt/conda/bin/conda install -y pytorch==${TORCH_VERSION} torchvision==${TOR
 ENV PATH /opt/conda/bin:$PATH
 
 ### install mmcv-full
-#RUN /opt/conda/bin/pip install mmcv-full==${MMCV_VERSION} -f https://download.openmmlab.com/mmcv/dist/cu${CUDA//./}/torch${TORCH_VERSION}/index.html  #-i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN /opt/conda/bin/pip install mmcv-full==${MMCV_VERSION} -f https://download.openmmlab.com/mmcv/dist/cu${CUDA//./}/torch${TORCH_VERSION}/index.html  #-i https://pypi.tuna.tsinghua.edu.cn/simple
 
 WORKDIR /root/workspace
 ### get onnxruntime
@@ -58,15 +58,15 @@ ENV ONNXRUNTIME_DIR=/root/workspace/onnxruntime-linux-x64-${ONNXRUNTIME_VERSION}
 ENV TENSORRT_DIR=/workspace/tensorrt
 ARG VERSION
 RUN git clone https://github.com/HuangJunJie2017/mmdeploy.git
-#RUN cd mmdeploy &&\
-#    if [ -z ${VERSION} ] ; then echo "No MMDeploy version passed in, building on master" ; else git checkout tags/v${VERSION} -b tag_v${VERSION} ; fi &&\
-#    git submodule update --init --recursive &&\
-#    mkdir -p build &&\
-#    cd build &&\
-#    cmake -DMMDEPLOY_TARGET_BACKENDS="ort;trt" .. &&\
-#    make -j$(nproc) &&\
-#    cd .. &&\
-#    pip install -e .  -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN cd mmdeploy &&\
+    if [ -z ${VERSION} ] ; then echo "No MMDeploy version passed in, building on master" ; else git checkout tags/v${VERSION} -b tag_v${VERSION} ; fi &&\
+    git submodule update --init --recursive &&\
+    mkdir -p build &&\
+    cd build &&\
+    cmake -DMMDEPLOY_TARGET_BACKENDS="ort;trt" .. &&\
+    make -j$(nproc) &&\
+    cd .. &&\
+    pip install -e .  -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ### build sdk
 #RUN git clone https://github.com/openppl-public/ppl.cv.git &&\
