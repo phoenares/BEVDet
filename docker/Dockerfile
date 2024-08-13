@@ -46,9 +46,9 @@ ENV PATH /opt/conda/bin:$PATH
 
 WORKDIR /root/workspace
 ### get onnxruntime
-RUN wget https://github.com/microsoft/onnxruntime/releases/download/v${ONNXRUNTIME_VERSION}/onnxruntime-linux-x64-${ONNXRUNTIME_VERSION}.tgz \
-    && tar -zxvf onnxruntime-linux-x64-${ONNXRUNTIME_VERSION}.tgz &&\
-    pip install onnxruntime-gpu==${ONNXRUNTIME_VERSION} #-i https://pypi.tuna.tsinghua.edu.cn/simple
+#RUN wget https://github.com/microsoft/onnxruntime/releases/download/v${ONNXRUNTIME_VERSION}/onnxruntime-linux-x64-${ONNXRUNTIME_VERSION}.tgz \
+#    && tar -zxvf onnxruntime-linux-x64-${ONNXRUNTIME_VERSION}.tgz &&\
+#    pip install onnxruntime-gpu==${ONNXRUNTIME_VERSION} #-i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ### cp trt from pip to conda
 RUN cp -r /usr/local/lib/python${PYTHON_VERSION}/dist-packages/tensorrt* /opt/conda/lib/python${PYTHON_VERSION}/site-packages/
