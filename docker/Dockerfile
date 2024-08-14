@@ -42,7 +42,7 @@ RUN /opt/conda/bin/conda install -y pytorch==${TORCH_VERSION} torchvision==${TOR
 ENV PATH /opt/conda/bin:$PATH
 
 ### install mmcv-full
-RUN /opt/conda/bin/pip install mmcv-full==${MMCV_VERSION} -f https://download.openmmlab.com/mmcv/dist/cu${CUDA//./}/torch${TORCH_VERSION}/index.html  #-i https://pypi.tuna.tsinghua.edu.cn/simple
+#RUN /opt/conda/bin/pip install mmcv-full==${MMCV_VERSION} -f https://download.openmmlab.com/mmcv/dist/cu${CUDA//./}/torch${TORCH_VERSION}/index.html  #-i https://pypi.tuna.tsinghua.edu.cn/simple
 
 WORKDIR /root/workspace
 ### get onnxruntime
